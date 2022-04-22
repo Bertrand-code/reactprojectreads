@@ -10,10 +10,12 @@ function Search() {
 
     useEffect(() => {
      if (query){
-      BooksAPI.search(query).then((booksSearch)=>{
+      BooksAPI.search(query).then((data)=>{
+        if(data){
+          setBooksSearch(booksSearch)
+          console.log(booksSearch)
+        }
         
-        setBooksSearch(booksSearch)
-        console.log(booksSearch)
       })
      } else{
        setBooksSearch([])
