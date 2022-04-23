@@ -1,33 +1,26 @@
-import React, { useEffect } from 'react'
+import CurrentlyReading from "./CurrentlyReading";
+import Read from "./Read";
+import WantToRead from "./WantToRead";
+import { Link } from "react-router-dom";
 
-import * as BooksAPI from '../BooksAPI';
-
-import CurrentlyReading from './CurrentlyReading';
-import { useState} from 'react';
-import Read from './Read';
-import WantToRead from './WantToRead';
-function Main({books}) {
-  const [showSearchPage, setShowSearchpage] = useState(false);
+function Main({ books, setBooks}) {
   return (
-
-    <div className="list-books" onChange={(e)=>e.target.value}>
-          <div className="list-books-title">
-            <h1>MyReads</h1>
-          </div>
-          <div className="list-books-content">
-            
-            <div>
-              <CurrentlyReading books={books} />
-              <Read books={books} />
-              <WantToRead books={books}/>
-            </div>
-          </div>
-          <div className="open-search">
-            <a onClick={() => setShowSearchpage(!showSearchPage)}>Add a book</a>
-          </div>
+    <div className="list-books" onChange={(e) => e.target.value}>
+      <div className="list-books-title">
+        <h1>MyReads</h1>
+      </div>
+      <div className="list-books-content">
+        <div>
+          <CurrentlyReading books={books} setBooks={setBooks}/>
+          <Read books={books} setBooks={setBooks}/>
+          <WantToRead books={books} setBooks={setBooks}/>
         </div>
-  )
+      </div>
+      <div className="open-search">
+        <Link to="/search">Add a book</Link>
+      </div>
+    </div>
+  );
 }
 
-
-export default Main
+export default Main;

@@ -1,74 +1,49 @@
-import React from 'react'
-import { useState, useEffect } from 'react';
+import React, { useRef } from 'react'
+import { useState} from 'react';
 import * as BooksAPI from "../BooksAPI";
 import Book from './Book';
-function Search() {
-    const [showSearchPage, setShowSearchpage] = useState(false);
-    const [query, setQuery]=useState('')
-    const [booksSearch, setBooksSearch]=useState([])
-   
+import {Link} from "react-router-dom"
 
-    useEffect(() => {
-     if (query){
-      BooksAPI.search(query).then((data)=>{
-        if(data){
-          setBooksSearch(booksSearch)
-          console.log(booksSearch)
-        }
-        
-      })
-     } else{
-       setBooksSearch([])
-     }
-     return ()=>{
-       
-       setBooksSearch([])
-     }
-    
-    }, [query.length])
-    
-    
+function Search() {
+  // to keep track of the search query
+  const query = useRef();
+  const [booksSearch, setBooksSearch] = useState(null);
+  function searchBook() {
+    BooksAPI.search(query.current.value).then((res) => {
+      if (res.error) {
+        setBooksSearch(null);
+        return;
+      }
+      setBooksSearch(res);
+    });
+  }
   return (
     <div className="search-books">
-          <div className="search-books-bar">
-            <a
-              className="close-search"
-              onClick={() => setShowSearchpage(!showSearchPage)} 
-            >
-              Close
-            </a>
-            <div className="search-books-input-wrapper">
-              <input
-                type="text"
-                placeholder="Search by title, author, or ISBN"
-              value={query}
-              onChange={(e)=>setQuery(e.target.value)}
-              />{console.log(query)}
-            </div>
-          </div>
-          <div className="search-books-results">
-            <ol className="books-grid">
-
-            {
-                       booksSearch.map(bookSearch=>(
-                      
-                            <li key={bookSearch.id}>
-                               
-                             <Book book={bookSearch}
-                             
-                             />
-                
-
-                            </li>
-                        ))
-                       
-                    }
-            </ol>
-          </div>
+      <div className="search-books-bar">
+        <Link className="close-search" to={"/"}>
+          Close
+        </Link>
+        <div className="search-books-input-wrapper">
+          <input
+            type="text"
+            placeholder="Search by title, author, or ISBN"
+            ref={query}
+            onChange={searchBook}
+          />
         </div>
- 
-  )
-
+      </div>
+      <div className="search-books-results">
+        <ol className="books-grid">
+          {booksSearch &&
+            booksSearch?.map((book) => (
+              <li key={book.id}>
+                <Book book={book} />
+              </li>
+            ))}
+        </ol>
+      </div>
+    </div>
+  );
 }
 
 export default Search

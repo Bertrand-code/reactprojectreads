@@ -17,16 +17,20 @@ function App() {
   },[books.length])
 
 return (
-    <div className="app">
-       <Main books={books}
-       setBooks={setBooks} 
-      /> 
-      <BrowserRouter>
-      <Routes>
-     <Route path="/search" element    ={<Search books={books} setBooks={setBooks}/>}/> 
-      </Routes>
-      </BrowserRouter>
-    </div>
+  <div className="app">
+  <BrowserRouter>
+    <Routes>
+      <Route
+        path="/"
+        element={<Main books={books} setBooks={setBooks} />}
+      />
+      <Route
+        path="/search"
+        element={<Search books={books} setBooks={setBooks} />}
+      />
+    </Routes>
+  </BrowserRouter>
+</div>
     
   );
 }
