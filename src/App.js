@@ -16,13 +16,18 @@ function App() {
     })
   },[books.length])
 
+  const moveShelves=(books)=>{
+    BooksAPI.update().then((books)=>{
+      setBooks(books)
+    })
+  }
 return (
   <div className="app">
   <BrowserRouter>
     <Routes>
       <Route
         path="/"
-        element={<Main books={books} setBooks={setBooks} />}
+        element={<Main books={books} setBooks={setBooks} moveShelves={moveShelves} />}
       />
       <Route
         path="/search"
