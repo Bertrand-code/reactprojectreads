@@ -15,13 +15,15 @@ function Search({setBooks, books}) {
         setBooksSearch(null);
         return;
       }
-      res.map((book) => {
+      res?.map((book) => {
         let search = books.find((b) => b.id === book.id);
-        search ? (book.shelf = search.shelf) : (book.shelf = "none");
+        search ? (book.shelf= search.shelf) : (book.shelf = "none");
+        return book;
       });
     
       setBooksSearch(res);
     });
+    
   }
   
   return (
