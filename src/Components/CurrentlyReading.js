@@ -1,6 +1,6 @@
 
 import Book from './Book'
-function CurrentlyReading({books}) {
+function CurrentlyReading({books, setBooks}) {
   
       const result=books.filter(book=>book.shelf==='currentlyReading') 
    
@@ -13,7 +13,7 @@ function CurrentlyReading({books}) {
                         result?.map(book=>(
                             <li key={book.id}>
                              <Book book={book}
-                             
+                             setBooks={setBooks}
         
                              />
                             </li>

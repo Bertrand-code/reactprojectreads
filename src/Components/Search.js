@@ -4,19 +4,26 @@ import * as BooksAPI from "../BooksAPI";
 import Book from './Book';
 import {Link} from "react-router-dom"
 
-function Search() {
+function Search({setBooks, books}) {
   // to keep track of the search query
+ 
   const query = useRef();
   const [booksSearch, setBooksSearch] = useState(null);
   function searchBook() {
     BooksAPI.search(query.current.value).then((res) => {
-      if (res.error) {
+      if ("error" in res) {
         setBooksSearch(null);
         return;
       }
+      res.map((book) => {
+        let search = books.find((b) => b.id === book.id);
+        search ? (book.shelf = search.shelf) : (book.shelf = "none");
+      });
+    
       setBooksSearch(res);
     });
   }
+  
   return (
     <div className="search-books">
       <div className="search-books-bar">
@@ -30,6 +37,7 @@ function Search() {
             ref={query}
             onChange={searchBook}
           />
+         
         </div>
       </div>
       <div className="search-books-results">
@@ -37,7 +45,7 @@ function Search() {
           {booksSearch &&
             booksSearch?.map((book) => (
               <li key={book.id}>
-                <Book book={book} />
+                <Book book={book} setBooks={setBooks}/>
               </li>
             ))}
         </ol>

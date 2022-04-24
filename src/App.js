@@ -16,7 +16,7 @@ function App() {
     })
   },[books.length])
 
-  const moveShelves=(books)=>{
+  const moveShelves=()=>{
     BooksAPI.update().then((books)=>{
       setBooks(books)
     })

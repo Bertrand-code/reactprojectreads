@@ -1,12 +1,19 @@
 import React from 'react'
-import *as BooksAPI from "../BooksAPI";
+import * as BooksAPI from "../BooksAPI";
 
 
-function Book({book}) {
+function Book({book, setBooks}) {
   const backgroundImage =
   book.imageLinks && book.imageLinks.thumbnail? book.imageLinks.thumbnail : "noImage";
 const title = book.title ? book.title : 'No title available';
  const authors=book.authors ? book.authors.join(', ') : 'Unknown Author'
+ 
+ async function changeShelf(e){
+  await BooksAPI.update(book, e.target.value)
+  await BooksAPI.getAll().then((book)=>{
+    setBooks(book)
+ })
+}
 
   return (
     <div className="book">
@@ -22,12 +29,10 @@ const title = book.title ? book.title : 'No title available';
                           ></div>
                           <div className="book-shelf-changer">
                             <select
-                            onChange={(e) => {
-                             BooksAPI.update(book, e.target.value);
-                              }}
-                            value={book.shelf}
+                            onChange={changeShelf}
+                            value={book.shelf||"none"}
                           >
-                              
+                            
                               
                               <option value="none" disabled>
                                 Move to...

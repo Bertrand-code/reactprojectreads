@@ -1,7 +1,7 @@
 import React from 'react'
 import Book from './Book'
 
-function WantToRead({books}) {
+function WantToRead({books, setBooks}) {
 const result=books.filter(book=>book.shelf==='wantToRead')
     
     
@@ -15,7 +15,7 @@ const result=books.filter(book=>book.shelf==='wantToRead')
                         result.map(book=>(
                             <li key={book.id}>
                              <Book book={book}
-                           
+                           setBooks={setBooks}
                             />
                             </li>
                         ))
