@@ -16,8 +16,10 @@ function Search({setBooks, books}) {
         return;
       }
       res?.map((book) => {
+        console.log(book)
         let search = books.find((b) => b.id === book.id);
-        search ? (book.shelf= search.shelf) : (book.shelf = "none");
+        search ? (book.shelf= search.shelf) : (book.shelf ="none");
+        
         return book;
       });
     

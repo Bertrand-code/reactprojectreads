@@ -12,9 +12,9 @@ Clone the repository, change directories, and use npm install to put in the depe
 
 
 
-$ git clone https://github.com/Bertrand-code/readsprojectreact.git
+$git clone https://github.com/Bertrand-code/readsprojectreact.git
 
-$ cd readsprojectreact
+$cd readsprojectreact
 $npm install 
 $npm start
 
