@@ -1,12 +1,12 @@
 import React, { useRef } from 'react'
-import { useState} from 'react';
+import { useState } from 'react';
 import * as BooksAPI from "../BooksAPI";
 import Book from './Book';
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom"
 
-function Search({setBooks, books}) {
+function Search({ setBooks, books }) {
   // to keep track of the search query
- 
+
   const query = useRef();
   const [booksSearch, setBooksSearch] = useState(null);
   function searchBook() {
@@ -18,16 +18,16 @@ function Search({setBooks, books}) {
       res?.map((book) => {
         console.log(book)
         let search = books.find((b) => b.id === book.id);
-        search ? (book.shelf= search.shelf) : (book.shelf ="none");
-        
+        search ? (book.shelf = search.shelf) : (book.shelf = "none");
+
         return book;
       });
-    
+
       setBooksSearch(res);
     });
-    
+
   }
-  
+
   return (
     <div className="search-books">
       <div className="search-books-bar">
@@ -41,7 +41,7 @@ function Search({setBooks, books}) {
             ref={query}
             onChange={searchBook}
           />
-         
+
         </div>
       </div>
       <div className="search-books-results">
@@ -49,7 +49,7 @@ function Search({setBooks, books}) {
           {booksSearch &&
             booksSearch?.map((book) => (
               <li key={book.id}>
-                <Book book={book} setBooks={setBooks}/>
+                <Book book={book} setBooks={setBooks} />
               </li>
             ))}
         </ol>
