@@ -14,7 +14,7 @@ function Search({ setBooks, books }) {
       BooksAPI.search(query.current.value).then((res) => {
         if ("error" in res) {
           setBooksSearch(null);
-          return booksSearch.includes(query);
+          return;
         }
         res?.map((book) => {
           console.log(book)
@@ -28,7 +28,7 @@ function Search({ setBooks, books }) {
       });
     }else{
       searchBook([])
-      return booksSearch.includes(!query);
+      return booksSearch.includes(query);
     }
 
   }
