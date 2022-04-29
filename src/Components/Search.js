@@ -4,7 +4,7 @@ import * as BooksAPI from "../BooksAPI";
 import Book from './Book';
 import { Link } from "react-router-dom"
 
-function Search({ setBooks, books }) {
+function Search({ setBooks, books, moveShelves}) {
   // to keep track of the search query
 
   const query = useRef();
@@ -19,7 +19,7 @@ function Search({ setBooks, books }) {
         res?.map((book) => {
           console.log(book)
           let search = books.find((b) => b.id === book.id);
-          search ? (book.shelf = search.shelf) : (book.shelf = "none");
+          search ? (book.shelf = search.shelf) : (book.shelf =  "None");
   
           return book;
         });
@@ -53,7 +53,7 @@ function Search({ setBooks, books }) {
           {booksSearch &&
             booksSearch?.map((book) => (
               <li key={book.id}>
-                <Book book={book} setBooks={setBooks} />
+                <Book book={book} setBooks={setBooks} moveShelves={moveShelves}/>
               </li>
               
             ))}
