@@ -10,21 +10,26 @@ function Search({ setBooks, books }) {
   const query = useRef();
   const [booksSearch, setBooksSearch] = useState(null);
   function searchBook() {
-    BooksAPI.search(query.current.value).then((res) => {
-      if ("error" in res) {
-        setBooksSearch(null);
-        return;
-      }
-      res?.map((book) => {
-        console.log(book)
-        let search = books.find((b) => b.id === book.id);
-        search ? (book.shelf = search.shelf) : (book.shelf = "none");
-
-        return book;
+    if(query){
+      BooksAPI.search(query.current.value).then((res) => {
+        if ("error" in res) {
+          setBooksSearch(null);
+          return booksSearch.includes(query);
+        }
+        res?.map((book) => {
+          console.log(book)
+          let search = books.find((b) => b.id === book.id);
+          search ? (book.shelf = search.shelf) : (book.shelf = "none");
+  
+          return book;
+        });
+  
+        setBooksSearch(res);
       });
-
-      setBooksSearch(res);
-    });
+    }else{
+      searchBook([])
+      return booksSearch.includes(!query);
+    }
 
   }
 
@@ -51,6 +56,7 @@ function Search({ setBooks, books }) {
               <li key={book.id}>
                 <Book book={book} setBooks={setBooks} />
               </li>
+              
             ))}
         </ol>
       </div>
