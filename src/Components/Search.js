@@ -10,9 +10,9 @@ function Search({ setBooks, books }) {
   const query = useRef();
   const [booksSearch, setBooksSearch] = useState(null);
   function searchBook() {
-    if(query){
+   
       BooksAPI.search(query.current.value).then((res) => {
-        if ("error" in res) {
+        if ("") {
           setBooksSearch(null);
           return;
         }
@@ -26,10 +26,9 @@ function Search({ setBooks, books }) {
   
         setBooksSearch(res);
       });
-    }else{
-      searchBook([])
-      return booksSearch.includes(query);
-    }
+  
+      setBooksSearch([])
+    
 
   }
 
