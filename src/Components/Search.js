@@ -16,10 +16,10 @@ function Search({ setBooks, books, moveShelves}) {
           setBooksSearch(null);
           return;
         }
-        res?.map((book) => {
+        res.map((book) => {
           console.log(book)
           let search = books.find((b) => b.id === book.id);
-          search ? (book.shelf = search.shelf) : (book.shelf =  "None");
+          search ? (book.shelf = search.shelf) : (book.shelf ="None");
   
           return book;
         });
@@ -44,6 +44,7 @@ function Search({ setBooks, books, moveShelves}) {
             placeholder="Search by title, author, or ISBN"
             ref={query}
             onChange={searchBook}
+            
           />
 
         </div>

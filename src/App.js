@@ -31,7 +31,7 @@ return (
       />
       <Route
         path="/search"
-        element={<Search books={books} setBooks={setBooks} />}
+        element={<Search books={books} setBooks={setBooks} moveShelves={moveShelves} />}
       />
     </Routes>
   </BrowserRouter>
